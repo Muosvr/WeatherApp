@@ -54,6 +54,9 @@
 var weatherData = {};
 var lat = NaN;
 var lon = NaN;
+var tempToggle = false;
+var temperatureC;
+var temperatureF;
 
 //Load function when documnet is ready
 $(window).on("load",function(){
@@ -108,13 +111,39 @@ $(window).on("load",function(){
             console.log(url);
             
             //Display temperature
-            var temperature = weatherData.main.temp;
+            temperatureC = weatherData.main.temp;
+            temperatureF = temperatureC*9/5+32
             
+            //round to 1 demimal place
+            temperatureF = precisionRound(temperatureF,1);
+            temperatureC = precisionRound(temperatureC,1);
+            $("#temperature").text(temperatureF+" F");
             
         });
     }
     
+    $("#temperature").click(function(){
+        if (tempToggle == false){
+            $("#temperature").text(temperatureC + " C");
+            tempToggle = true;
+        }else{
+            $("#temperature").text(temperatureF + " F");
+            tempToggle = false;
+        }
+        
+       console.log("toggle temp"); 
+    });
     
+    //founction for rounding
+    function precisionRound(number, precision) {
+      var factor = Math.pow(10, precision);
+      return Math.round(number * factor) / factor;
+    }
     
+    //refresh button
+    $("#refresh").click(function(){
+        makeRequest(lat,lon);
+    });
       
 });
+
