@@ -54,10 +54,9 @@
 var weatherData = {};
 var lat = NaN;
 var lon = NaN;
-var locationFound = false;
 
 //Load function when documnet is ready
-$(document).ready(function(){
+$(window).on("load",function(){
     /* Notes: how to get Location
     e.g. To get location latitude and longitude
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -68,7 +67,7 @@ $(document).ready(function(){
   navigator.geolocation.getCurrentPosition (function(position){
       lat = position.coords.latitude;
       lon = position.coords.longitude;
-      console.log("latitude: ", lat, "longitude: ", lon);
+    //   console.log("latitude: ", lat, "longitude: ", lon);
       
       //call to get weather data
       makeRequest(lat,lon);
@@ -77,21 +76,44 @@ $(document).ready(function(){
     
     
     //create a new request
-    // setInterval(makeRequest(),3000);
     
     function makeRequest(lat,lon){
         var url = "https://fcc-weather-api.glitch.me/api/current?lat="+lat+"&lon="+lon;
-        console.log(url);
+        // console.log(url);
         const myRequest = new Request(url);
+        
+        //Andother way to make API request: $.getJSON(url,function(response){});
     
-        //Getting a response
+        // Getting a response
         weatherData = fetch(myRequest)
         .then(function(response){return response.json()})
         .then(function(data){
             weatherData = data;
-            console.log(weatherData.coord);
+            
+            //Display location
+            var location = weatherData.name;
+            $("#location").text(location);
+            console.log(location);
+            
+            //Display weather description
+            var description = weatherData.weather[0].description;
+            $('#description').text(description);
+            console.log(description);
+            
+            //Display image
+            var url = weatherData.weather[0].icon;
+            var image = "<img src="+url+">";
+            $("#icon").html(image);
+            $("#icon img").addClass("icon");
+            console.log(url);
+            
+            //Display temperature
+            var temperature = weatherData.main.temp;
+            
+            
         });
     }
+    
     
     
       
