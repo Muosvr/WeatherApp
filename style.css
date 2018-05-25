@@ -112,3 +112,12 @@ body,html{
     transform:scale(1.02);
     cursor:pointer;
 }
+
+.loader{
+    text-align:center;
+    display: none;
+}
+
+.disappear{
+    display:none;
+}

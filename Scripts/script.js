@@ -58,6 +58,7 @@ var tempToggle = false;
 var temperatureDisplay="";
 var temperatureC;
 var temperatureF;
+var loading = true;
 
 //Load function when documnet is ready
 $(window).on("load",function(){
@@ -74,7 +75,10 @@ $(window).on("load",function(){
     //   console.log("latitude: ", lat, "longitude: ", lon);
       
       //call to get weather data
-      makeRequest(lat,lon);
+      setTimeout(function(){
+          makeRequest(lat,lon);
+      },2000);
+      
       
   });
     
@@ -82,6 +86,9 @@ $(window).on("load",function(){
     //create a new request
     
     function makeRequest(lat,lon){
+        
+        clearInterval(interval);
+        
         var url = "https://fcc-weather-api.glitch.me/api/current?lat="+lat+"&lon="+lon;
         // console.log(url);
         const myRequest = new Request(url);
@@ -104,14 +111,14 @@ $(window).on("load",function(){
             $('#description').text(description);
             // console.log(description);
             
-            //Display image
+            //Load image
             var url = weatherData.weather[0].icon;
             var image = "<img src="+url+">";
             $("#icon").html(image);
             $("#icon img").addClass("icon");
             // console.log(url);
             
-            //Display temperature
+            //Load temperature
             temperatureC = weatherData.main.temp;
             temperatureF = temperatureC*9/5+32;
             
@@ -122,6 +129,11 @@ $(window).on("load",function(){
             //default to Fahrenheit
             temperatureDisplay = temperatureF+" F";
             $("#temperature").text(temperatureDisplay);
+            
+            //Display results
+            $("#main").fadeIn(1000);
+            
+            $(".loader").addClass("disappear");
         },function(reason){
             console.error('onRejection function called: ', reason);
         });
@@ -163,12 +175,16 @@ $(window).on("load",function(){
                                border:"2px solid black"})
                          .text(temperatureDisplay);
     })
-      
-      $("#main").fadeIn(1000);
-      
-      setInterval(function(){
-          
-      },2000);
+    
+    //main object fadeIn 
+    $("#main").fadeIn(1000);
+    
+    function loader() {
+        $(".loader").fadeIn(500);
+        $(".loader").fadeOut(500);
+    }
+
+    var interval = setInterval(loader,1000);
       
     //   $("body").animate({"background-position":"40%"},2000,'linear');
 });
