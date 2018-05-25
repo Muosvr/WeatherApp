@@ -55,6 +55,7 @@ var weatherData = {};
 var lat = NaN;
 var lon = NaN;
 var tempToggle = false;
+var temperatureDisplay="";
 var temperatureC;
 var temperatureF;
 
@@ -96,42 +97,46 @@ $(window).on("load",function(){
             //Display location
             var location = weatherData.name;
             $("#location").text(location);
-            console.log(location);
+            // console.log(location);
             
             //Display weather description
             var description = weatherData.weather[0].description;
             $('#description').text(description);
-            console.log(description);
+            // console.log(description);
             
             //Display image
             var url = weatherData.weather[0].icon;
             var image = "<img src="+url+">";
             $("#icon").html(image);
             $("#icon img").addClass("icon");
-            console.log(url);
+            // console.log(url);
             
             //Display temperature
             temperatureC = weatherData.main.temp;
-            temperatureF = temperatureC*9/5+32
+            temperatureF = temperatureC*9/5+32;
             
             //round to 1 demimal place
             temperatureF = precisionRound(temperatureF,1);
             temperatureC = precisionRound(temperatureC,1);
-            $("#temperature").text(temperatureF+" F");
             
+            //default to Fahrenheit
+            temperatureDisplay = temperatureF+" F";
+            $("#temperature").text(temperatureDisplay);
         });
     }
     
     $("#temperature").click(function(){
         if (tempToggle == false){
-            $("#temperature").text(temperatureC + " C");
+            temperatureDisplay = temperatureC + " C";
+            $("#temperature").text(temperatureDisplay);
             tempToggle = true;
         }else{
-            $("#temperature").text(temperatureF + " F");
+            temperatureDisplay = temperatureF + " F"
+            $("#temperature").text(temperatureDisplay);
             tempToggle = false;
         }
         
-       console.log("toggle temp"); 
+    //   console.log("toggle temp"); 
     });
     
     //founction for rounding
@@ -143,7 +148,20 @@ $(window).on("load",function(){
     //refresh button
     $("#refresh").click(function(){
         makeRequest(lat,lon);
+        console.log("clicked");
     });
+    
+    
+    $("#temperature").hover(function(){
+        $("#temperature").css({background:"black",color:"white",
+                               border:"2px solid black"})
+                         .text("C/F");
+    },function(){
+        $("#temperature").css({background:"white",color:"black",
+                               border:"2px solid black"})
+                         .text(temperatureDisplay);
+    })
       
+      $("#main").slideDown(500);
 });
 
