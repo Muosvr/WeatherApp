@@ -59,6 +59,7 @@ var temperatureDisplay="";
 var temperatureC;
 var temperatureF;
 var loading = true;
+var url = undefined;
 
 //Load function when documnet is ready
 $(window).on("load",function(){
@@ -107,15 +108,18 @@ $(window).on("load",function(){
             // console.log(location);
             
             //Display weather description
-            var description = weatherData.weather[0].description;
+            var description = weatherData.weather[0].main;
             $('#description').text(description);
             // console.log(description);
             
             //Load image
-            var url = weatherData.weather[0].icon;
+            url = weatherData.weather[0].icon;
             var image = "<img src="+url+">";
-            $("#icon").html(image);
-            $("#icon img").addClass("icon");
+            if (url != undefined){
+              $("#icon").html(image);
+            $("#icon img").addClass("icon");  
+            }
+            
             // console.log(url);
             
             //Load temperature
