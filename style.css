@@ -3,14 +3,26 @@
 body,html{
     height: 100%;
     margin: 0;
-    /*background: url("images/old-tv.jpg");*/
+    background-image: url(images/fog.jpg);
+    background-size:cover;
+    /*background-size: 120%;*/
+    /*background-position:50% 50%;*/
+    /*animation-name:panning;*/
+    /*animation-duration:5s ;*/
 }
 
+/*@keyframes panning{*/
+/*    from {background-position:40% 50%;}*/
+    /*to  {background-position:42.5% 50%;}*/
+    /*50%   {background-position:45% 50%;}*/
+    /*75%   {background-position:47.5% 50%;}*/
+/*    to  {background-position:50% 50%;}*/
+/*}*/
+
 #main{
-    /*background: url("images/yellow.jpg");*/
-    background-color:white;
+    /*background-color:white;*/
     width:300px;
-    /*height:300px;*/
+    height:330px;
     border:2px solid;
     position:absolute;
     margin-left:auto;
@@ -21,7 +33,7 @@ body,html{
     padding:0;
     padding-bottom: 20px;
     padding-top:0;
-    border-radius:8px;
+    border-radius:10px;
     display:none;
     
 }
@@ -49,8 +61,8 @@ body,html{
     margin-left:auto;
     margin-right:auto;
     width:80px;
-    border-radius:5px;
-    font-size:20px !important;
+    border-radius:8px;
+    padding:3px;
 }
 #temperature:hover{
     cursor: pointer;
@@ -72,11 +84,10 @@ body,html{
     font-family: 'Raleway', sans-serif;
     width:80px;
     border:2px solid;
-    border-radius:5px;
+    border-radius:8px;
     text-align:center;
-    /*display:inline-block;*/
     margin-left: auto;
-    margin-right:auto; 
+    margin-right:auto;
 }
 
 #refresh:hover{
@@ -84,5 +95,20 @@ body,html{
     border-radius:5px;
     background-color:black;
     color:white;
+    cursor:pointer;
+}
+
+#credit{
+    font-family: sans-serif;
+    color:white;
+    opacity:0.5;
+    position:fixed;
+    bottom:10px;
+    right:20px;
+    text-decoration:none;
+}
+
+#credit:hover{
+    transform:scale(1.02);
     cursor:pointer;
 }

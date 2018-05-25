@@ -122,6 +122,8 @@ $(window).on("load",function(){
             //default to Fahrenheit
             temperatureDisplay = temperatureF+" F";
             $("#temperature").text(temperatureDisplay);
+        },function(reason){
+            console.error('onRejection function called: ', reason);
         });
     }
     
@@ -151,17 +153,23 @@ $(window).on("load",function(){
         console.log("clicked");
     });
     
-    
+    //show change temperature unit when however
     $("#temperature").hover(function(){
         $("#temperature").css({background:"black",color:"white",
                                border:"2px solid black"})
                          .text("C/F");
     },function(){
-        $("#temperature").css({background:"white",color:"black",
+        $("#temperature").css({background:"transparent",color:"black",
                                border:"2px solid black"})
                          .text(temperatureDisplay);
     })
       
-      $("#main").slideDown(500);
+      $("#main").fadeIn(1000);
+      
+      setInterval(function(){
+          
+      },2000);
+      
+    //   $("body").animate({"background-position":"40%"},2000,'linear');
 });
 
